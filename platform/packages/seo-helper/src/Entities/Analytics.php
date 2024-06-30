@@ -63,6 +63,7 @@ class Analytics implements AnalyticsContract
         return <<<EOT
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=$this->google"></script>
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="e8e960fa-0866-4424-be0d-637b01e20b6c";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 <script>
  "use strict";
   window.dataLayer = window.dataLayer || [];

@@ -95,10 +95,26 @@
          </div>
      @endif
 
-    <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
+    <a href="#" class="scrollup" style="display: none; position: fixed; bottom: 100px; right: 40px; z-index: 1000;"><i class="ion-ios-arrow-up"></i></a>
 
     <script>
         window.siteUrl = "{{ url('') }}";
+    </script>
+    <!-- <script 
+            src="https://widget.yourgpt.ai/script.js"
+            id="yourgpt-chatbot"
+            data-widget="78ed4291-816a-4e8d-a1d2-2897cb8a823f"
+    ></script> -->
+    <script type="text/javascript">
+        (function(d, m){
+            var kommunicateSettings = 
+                {"appId":"1a08709468c1ddae2145f6a9ea534825","popupWidget":true,"automaticChatOpenOnNavigation":true};
+            var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+            s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+            var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+            window.kommunicate = m; m._globals = kommunicateSettings;
+        })(document, window.kommunicate || {});
+        /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
     </script>
 
     {!! Theme::footer() !!}
@@ -125,6 +141,7 @@
                 @endif
             });
         </script>
+        
     @endif
 
     </body>

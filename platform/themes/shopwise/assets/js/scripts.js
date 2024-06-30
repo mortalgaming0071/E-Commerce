@@ -7,16 +7,23 @@ Version      : 1.0
 /*===================================*
 PAGE JS
 *===================================*/
-
-(function ($) {
-    'use strict';
+window.$crisp = [];
+window.CRISP_WEBSITE_ID = "e8e960fa-0866-4424-be0d-637b01e20b6c";
+(function () {
+    d = document;
+    s = d.createElement("script");
+    s.src = "https://client.crisp.chat/l.js";
+    s.async = 1;
+    d.getElementsByTagName("head")[0].appendChild(s);
+})()(function ($) {
+    "use strict";
 
     /*===================================*
     01. LOADING JS
     /*===================================*/
-    $(window).on('load', function () {
+    $(window).on("load", function () {
         setTimeout(function () {
-            $(".preloader").delay(700).fadeOut(700).addClass('loaded');
+            $(".preloader").delay(700).fadeOut(700).addClass("loaded");
         }, 800);
     });
 
@@ -25,9 +32,9 @@ PAGE JS
     *===================================*/
     /*data image src*/
     $(".background_bg").each(function () {
-        var attr = $(this).attr('data-img-src');
+        var attr = $(this).attr("data-img-src");
         if (typeof attr !== typeof undefined && attr !== false) {
-            $(this).css('background-image', 'url(' + attr + ')');
+            $(this).css("background-image", "url(" + attr + ")");
         }
     });
 
@@ -35,171 +42,186 @@ PAGE JS
     03. ANIMATION JS
     *===================================*/
     $(function () {
-
         function ckScrollInit(items, trigger) {
             items.each(function () {
                 var ckElement = $(this),
-                    AnimationClass = ckElement.attr('data-animation'),
-                    AnimationDelay = ckElement.attr('data-animation-delay');
+                    AnimationClass = ckElement.attr("data-animation"),
+                    AnimationDelay = ckElement.attr("data-animation-delay");
 
                 ckElement.css({
-                    '-webkit-animation-delay': AnimationDelay,
-                    '-moz-animation-delay': AnimationDelay,
-                    'animation-delay': AnimationDelay,
-                    opacity: 0
+                    "-webkit-animation-delay": AnimationDelay,
+                    "-moz-animation-delay": AnimationDelay,
+                    "animation-delay": AnimationDelay,
+                    opacity: 0,
                 });
 
-                var ckTrigger = (trigger) ? trigger : ckElement;
+                var ckTrigger = trigger ? trigger : ckElement;
 
-                ckTrigger.waypoint(function () {
-                    ckElement.addClass("animated").css("opacity", "1");
-                    ckElement.addClass('animated').addClass(AnimationClass);
-                }, {
-                    triggerOnce: true,
-                    offset: '90%',
-                });
+                ckTrigger.waypoint(
+                    function () {
+                        ckElement.addClass("animated").css("opacity", "1");
+                        ckElement.addClass("animated").addClass(AnimationClass);
+                    },
+                    {
+                        triggerOnce: true,
+                        offset: "90%",
+                    }
+                );
             });
         }
 
-        ckScrollInit($('.animation'));
-        ckScrollInit($('.staggered-animation'), $('.staggered-animation-wrap'));
-
+        ckScrollInit($(".animation"));
+        ckScrollInit($(".staggered-animation"), $(".staggered-animation-wrap"));
     });
 
     /*===================================*
     04. MENU JS
     *===================================*/
     //Main navigation scroll spy for shadow
-    $(window).on('scroll', function () {
+    $(window).on("scroll", function () {
         var scroll = $(window).scrollTop();
 
         if (scroll >= 150) {
-            $('header.fixed-top').addClass('nav-fixed');
+            $("header.fixed-top").addClass("nav-fixed");
         } else {
-            $('header.fixed-top').removeClass('nav-fixed');
+            $("header.fixed-top").removeClass("nav-fixed");
         }
-
     });
 
     // Show Hide dropdown-menu Main navigation
-    $(document).on('ready', function () {
-        $('.dropdown-menu a.dropdown-toggler').on('click', function () {
-            if (!$(this).next().hasClass('show')) {
-                $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+    $(document).on("ready", function () {
+        $(".dropdown-menu a.dropdown-toggler").on("click", function () {
+            if (!$(this).next().hasClass("show")) {
+                $(this)
+                    .parents(".dropdown-menu")
+                    .first()
+                    .find(".show")
+                    .removeClass("show");
             }
             var $subMenu = $(this).next(".dropdown-menu");
-            $subMenu.toggleClass('show');
+            $subMenu.toggleClass("show");
 
-            $(this).parent("li").toggleClass('show');
+            $(this).parent("li").toggleClass("show");
 
-            $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function () {
-                $('.dropdown-menu .show').removeClass("show");
-            });
+            $(this)
+                .parents("li.nav-item.dropdown.show")
+                .on("hidden.bs.dropdown", function () {
+                    $(".dropdown-menu .show").removeClass("show");
+                });
 
             return false;
         });
     });
 
     //Hide Navbar Dropdown After Click On Links
-    var navBar = $('.header_wrap');
+    var navBar = $(".header_wrap");
     var navbarLinks = navBar.find(".navbar-collapse ul li a.page-scroll");
 
     $.each(navbarLinks, function () {
-
         var navbarLink = $(this);
 
-        navbarLink.on('click', function () {
-            navBar.find(".navbar-collapse").collapse('hide');
+        navbarLink.on("click", function () {
+            navBar.find(".navbar-collapse").collapse("hide");
             $("header").removeClass("active");
         });
-
     });
 
     // Main navigation Active Class Add Remove
-    $('.navbar-toggler').on('click', function () {
+    $(".navbar-toggler").on("click", function () {
         $("header").toggleClass("active");
-        if ($('.search-overlay').hasClass('open')) {
-            $(".search-overlay").removeClass('open');
-            $(".search_trigger").removeClass('open');
+        if ($(".search-overlay").hasClass("open")) {
+            $(".search-overlay").removeClass("open");
+            $(".search_trigger").removeClass("open");
         }
     });
 
-    $(document).on('ready', function () {
-        if ($('.header_wrap').hasClass("fixed-top") && !$('.header_wrap').hasClass("transparent_header") && !$('.header_wrap').hasClass("no-sticky")) {
-            $(".header_wrap").before('<div class="header_sticky_bar d-none"></div>');
+    $(document).on("ready", function () {
+        if (
+            $(".header_wrap").hasClass("fixed-top") &&
+            !$(".header_wrap").hasClass("transparent_header") &&
+            !$(".header_wrap").hasClass("no-sticky")
+        ) {
+            $(".header_wrap").before(
+                '<div class="header_sticky_bar d-none"></div>'
+            );
         }
     });
 
-    $(window).on('scroll', function () {
+    $(window).on("scroll", function () {
         var scroll = $(window).scrollTop();
 
         if (scroll >= 150) {
-            $('.header_sticky_bar').removeClass('d-none');
-            $('header.no-sticky').removeClass('nav-fixed');
-
+            $(".header_sticky_bar").removeClass("d-none");
+            $("header.no-sticky").removeClass("nav-fixed");
         } else {
-            $('.header_sticky_bar').addClass('d-none');
+            $(".header_sticky_bar").addClass("d-none");
         }
-
     });
 
     var setHeight = function () {
         var height_header = $(".header_wrap").height();
-        $('.header_sticky_bar').css({'height': height_header});
+        $(".header_sticky_bar").css({ height: height_header });
     };
 
-    $(window).on('load', function () {
+    $(window).on("load", function () {
         setHeight();
     });
 
-    $(window).on('resize', function () {
+    $(window).on("resize", function () {
         setHeight();
     });
 
-    $('.sidetoggle').on('click', function () {
-        $(this).addClass('open');
-        $('body').addClass('sidetoggle_active');
-        $('.sidebar_menu').addClass('active');
-        $("body").append('<div id="header-overlay" class="header-overlay"></div>');
+    $(".sidetoggle").on("click", function () {
+        $(this).addClass("open");
+        $("body").addClass("sidetoggle_active");
+        $(".sidebar_menu").addClass("active");
+        $("body").append(
+            '<div id="header-overlay" class="header-overlay"></div>'
+        );
     });
 
-    $(document).on('click', '#header-overlay, .sidemenu_close', function () {
-        $('.sidetoggle').removeClass('open');
-        $('body').removeClass('sidetoggle_active');
-        $('.sidebar_menu').removeClass('active');
-        $('#header-overlay').fadeOut('3000', function () {
-            $('#header-overlay').remove();
+    $(document).on("click", "#header-overlay, .sidemenu_close", function () {
+        $(".sidetoggle").removeClass("open");
+        $("body").removeClass("sidetoggle_active");
+        $(".sidebar_menu").removeClass("active");
+        $("#header-overlay").fadeOut("3000", function () {
+            $("#header-overlay").remove();
         });
         return false;
     });
 
-    $(".categories_btn").on('click', function () {
-        $('.side_navbar_toggler').attr('aria-expanded', 'false');
-        $('#navbarSidetoggle').removeClass('show');
+    $(".categories_btn").on("click", function () {
+        $(".side_navbar_toggler").attr("aria-expanded", "false");
+        $("#navbarSidetoggle").removeClass("show");
     });
 
-    $(".side_navbar_toggler").on('click', function () {
-        $('.categories_btn').attr('aria-expanded', 'false');
-        $('#navCatContent').removeClass('show');
+    $(".side_navbar_toggler").on("click", function () {
+        $(".categories_btn").attr("aria-expanded", "false");
+        $("#navCatContent").removeClass("show");
     });
 
-    $(".pr_search_trigger").on('click', function () {
-        $(this).toggleClass('show');
-        $('.product_search_form').toggleClass('show');
+    $(".pr_search_trigger").on("click", function () {
+        $(this).toggleClass("show");
+        $(".product_search_form").toggleClass("show");
     });
 
     var rclass = true;
 
-    $("html").on('click', function () {
+    $("html").on("click", function () {
         if (rclass) {
-            $('.categories_btn').addClass('collapsed');
-            $('.categories_btn,.side_navbar_toggler').attr('aria-expanded', 'false');
-            $('#navCatContent,#navbarSidetoggle').removeClass('show');
+            $(".categories_btn").addClass("collapsed");
+            $(".categories_btn,.side_navbar_toggler").attr(
+                "aria-expanded",
+                "false"
+            );
+            $("#navCatContent,#navbarSidetoggle").removeClass("show");
         }
         rclass = true;
     });
 
-    $(".categories_btn,#navCatContent,#navbarSidetoggle .navbar-nav,.side_navbar_toggler").on('click', function () {
+    $(
+        ".categories_btn,#navCatContent,#navbarSidetoggle .navbar-nav,.side_navbar_toggler"
+    ).on("click", function () {
         rclass = false;
     });
 
@@ -211,27 +233,36 @@ PAGE JS
     var topheaderHeight = $(".top-header").innerHeight();
     var mainheaderHeight = $(".header_wrap").innerHeight();
     var headerHeight = mainheaderHeight - topheaderHeight - 20;
-    $('a.page-scroll[href*="#"]:not([href="#"])').on('click', function () {
-        $('a.page-scroll.active').removeClass('active');
-        $(this).closest('.page-scroll').addClass('active');
+    $('a.page-scroll[href*="#"]:not([href="#"])').on("click", function () {
+        $("a.page-scroll.active").removeClass("active");
+        $(this).closest(".page-scroll").addClass("active");
         // On-page links
-        if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
+        if (
+            location.pathname.replace(/^\//, "") ===
+                this.pathname.replace(/^\//, "") &&
+            location.hostname === this.hostname
+        ) {
             // Figure out element to scroll to
             var target = $(this.hash),
                 speed = $(this).data("speed") || 800;
-            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            target = target.length
+                ? target
+                : $("[name=" + this.hash.slice(1) + "]");
 
             // Does a scroll target exist?
             if (target.length) {
                 // Only prevent default if animation is actually gonna happen
                 event.preventDefault();
-                $('html, body').animate({
-                    scrollTop: target.offset().top - headerHeight
-                }, speed);
+                $("html, body").animate(
+                    {
+                        scrollTop: target.offset().top - headerHeight,
+                    },
+                    speed
+                );
             }
         }
     });
-    $(window).on('scroll', function () {
+    $(window).on("scroll", function () {
         var lastId,
             // All list items
             menuItems = $(".header_wrap").find("a.page-scroll"),
@@ -247,8 +278,7 @@ PAGE JS
 
         // Get id of current scroll item
         var cur = scrollItems.map(function () {
-            if ($(this).offset().top < fromTop)
-                return this;
+            if ($(this).offset().top < fromTop) return this;
         });
         // Get the id of the current element
         cur = cur[cur.length - 1];
@@ -257,15 +287,20 @@ PAGE JS
         if (lastId !== id) {
             lastId = id;
             // Set/remove active class
-            menuItems.closest('.page-scroll').removeClass("active").end().filter("[href='#" + id + "']").closest('.page-scroll').addClass("active");
+            menuItems
+                .closest(".page-scroll")
+                .removeClass("active")
+                .end()
+                .filter("[href='#" + id + "']")
+                .closest(".page-scroll")
+                .addClass("active");
         }
-
     });
 
-    $('.more_slide_open').slideUp();
-    $('.more_categories').on('click', function () {
-        $(this).toggleClass('show');
-        $('.more_slide_open').slideToggle();
+    $(".more_slide_open").slideUp();
+    $(".more_categories").on("click", function () {
+        $(this).toggleClass("show");
+        $(".more_slide_open").slideToggle();
     });
 
     /*===================================*
@@ -273,30 +308,30 @@ PAGE JS
     *===================================*/
 
     $(".close-search").on("click", function () {
-        $(".search_wrap,.search_overlay").removeClass('open');
-        $("body").removeClass('search_open');
+        $(".search_wrap,.search_overlay").removeClass("open");
+        $("body").removeClass("search_open");
     });
 
     var removeClass = true;
     $(".search_wrap").after('<div class="search_overlay"></div>');
-    $(".search_trigger").on('click', function () {
-        $(".search_wrap,.search_overlay").toggleClass('open');
-        $("body").toggleClass('search_open');
+    $(".search_trigger").on("click", function () {
+        $(".search_wrap,.search_overlay").toggleClass("open");
+        $("body").toggleClass("search_open");
         removeClass = false;
-        if ($('.navbar-collapse').hasClass('show')) {
-            $(".navbar-collapse").removeClass('show');
-            $(".navbar-toggler").addClass('collapsed');
+        if ($(".navbar-collapse").hasClass("show")) {
+            $(".navbar-collapse").removeClass("show");
+            $(".navbar-toggler").addClass("collapsed");
             $(".navbar-toggler").attr("aria-expanded", false);
         }
     });
-    $(".search_wrap form").on('click', function () {
+    $(".search_wrap form").on("click", function () {
         removeClass = false;
     });
-    $("html").on('click', function () {
+    $("html").on("click", function () {
         if (removeClass) {
-            $("body").removeClass('open');
-            $(".search_wrap,.search_overlay").removeClass('open');
-            $("body").removeClass('search_open');
+            $("body").removeClass("open");
+            $(".search_wrap,.search_overlay").removeClass("open");
+            $("body").removeClass("search_open");
         }
         removeClass = true;
     });
@@ -304,19 +339,22 @@ PAGE JS
     /*===================================*
     07. SCROLLUP JS
     *===================================*/
-    $(window).on('scroll', function () {
+    $(window).on("scroll", function () {
         if ($(this).scrollTop() > 150) {
-            $('.scrollup').fadeIn();
+            $(".scrollup").fadeIn();
         } else {
-            $('.scrollup').fadeOut();
+            $(".scrollup").fadeOut();
         }
     });
 
-    $(".scrollup").on('click', function (e) {
+    $(".scrollup").on("click", function (e) {
         e.preventDefault();
-        $('html, body').animate({
-            scrollTop: 0
-        }, 600);
+        $("html, body").animate(
+            {
+                scrollTop: 0,
+            },
+            600
+        );
         return false;
     });
 
@@ -331,16 +369,16 @@ PAGE JS
                 $grid_selectors.imagesLoaded(function () {
                     if ($grid_selectors.hasClass("masonry")) {
                         $grid_selectors.isotope({
-                            itemSelector: '.grid_item',
+                            itemSelector: ".grid_item",
                             percentPosition: true,
                             layoutMode: "masonry",
                             masonry: {
-                                columnWidth: '.grid-sizer'
+                                columnWidth: ".grid-sizer",
                             },
                         });
                     } else {
                         $grid_selectors.isotope({
-                            itemSelector: '.grid_item',
+                            itemSelector: ".grid_item",
                             percentPosition: true,
                             layoutMode: "fitRows",
                         });
@@ -352,50 +390,53 @@ PAGE JS
             $(document).on("click", filter_selectors, function () {
                 $(filter_selectors).removeClass("current");
                 $(this).addClass("current");
-                var dfselector = $(this).data('filter');
+                var dfselector = $(this).data("filter");
                 if ($grid_selectors.hasClass("masonry")) {
                     $grid_selectors.isotope({
-                        itemSelector: '.grid_item',
+                        itemSelector: ".grid_item",
                         layoutMode: "masonry",
                         masonry: {
-                            columnWidth: '.grid_item'
+                            columnWidth: ".grid_item",
                         },
-                        filter: dfselector
+                        filter: dfselector,
                     });
                 } else {
                     $grid_selectors.isotope({
-                        itemSelector: '.grid_item',
+                        itemSelector: ".grid_item",
                         layoutMode: "fitRows",
-                        filter: dfselector
+                        filter: dfselector,
                     });
                 }
                 return false;
             });
 
-            $('.portfolio_filter').on('change', function () {
+            $(".portfolio_filter").on("change", function () {
                 $grid_selectors.isotope({
-                    filter: this.value
+                    filter: this.value,
                 });
             });
 
             $(window).on("resize", function () {
                 setTimeout(function () {
-                    $grid_selectors.find('.grid_item').removeClass('animation').removeClass('animated'); // avoid problem to filter after window resize
-                    $grid_selectors.isotope('layout');
+                    $grid_selectors
+                        .find(".grid_item")
+                        .removeClass("animation")
+                        .removeClass("animated"); // avoid problem to filter after window resize
+                    $grid_selectors.isotope("layout");
                 }, 300);
             });
         }
     });
 
-    $('.link_container').each(function () {
+    $(".link_container").each(function () {
         $(this).magnificPopup({
-            delegate: '.image_popup',
-            type: 'image',
-            mainClass: 'mfp-zoom-in',
+            delegate: ".image_popup",
+            type: "image",
+            mainClass: "mfp-zoom-in",
             removalDelay: 500,
             gallery: {
-                enabled: true
-            }
+                enabled: true,
+            },
         });
     });
 
@@ -403,10 +444,10 @@ PAGE JS
     10. SLIDER JS
     *===================================*/
     function carousel_slider() {
-        $('.carousel_slider').each(function () {
+        $(".carousel_slider").each(function () {
             var $carousel = $(this);
             $carousel.owlCarousel({
-                rtl: $('body').prop('dir') === 'rtl',
+                rtl: $("body").prop("dir") === "rtl",
                 dots: $carousel.data("dots"),
                 loop: $carousel.data("loop"),
                 items: $carousel.data("items"),
@@ -417,22 +458,25 @@ PAGE JS
                 center: $carousel.data("center"),
                 nav: $carousel.data("nav"),
                 rewind: $carousel.data("rewind"),
-                navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
+                navText: [
+                    '<i class="ion-ios-arrow-left"></i>',
+                    '<i class="ion-ios-arrow-right"></i>',
+                ],
                 autoplay: $carousel.data("autoplay"),
                 animateIn: $carousel.data("animate-in"),
                 animateOut: $carousel.data("animate-out"),
                 autoplayTimeout: $carousel.data("autoplay-timeout"),
                 smartSpeed: $carousel.data("smart-speed"),
-                responsive: $carousel.data("responsive")
+                responsive: $carousel.data("responsive"),
             });
         });
     }
 
     function slick_slider() {
-        $('.slick_slider').each(function () {
+        $(".slick_slider").each(function () {
             var $slick_carousel = $(this);
             $slick_carousel.slick({
-                rtl: $('body').prop('dir') === 'rtl',
+                rtl: $("body").prop("dir") === "rtl",
                 arrows: $slick_carousel.data("arrows"),
                 dots: $slick_carousel.data("dots"),
                 infinite: $slick_carousel.data("infinite"),
@@ -450,11 +494,10 @@ PAGE JS
                 slidesToScroll: $slick_carousel.data("slides-to-scroll"),
                 asNavFor: $slick_carousel.data("as-nav-for"),
                 focusOnSelect: $slick_carousel.data("focus-on-select"),
-                responsive: $slick_carousel.data("responsive")
+                responsive: $slick_carousel.data("responsive"),
             });
         });
     }
-
 
     $(document).ready(function () {
         carousel_slider();
@@ -483,78 +526,75 @@ PAGE JS
                     $("#phone").val("Enter Phone Number");
                     $("#subject").val("Enter Subject");
                     $("#description").val("Enter Message");
-
                 }
                 $("#alert-msg").html(data.msg);
                 $("#alert-msg").show();
             },
             error: function (xhr, textStatus) {
                 alert(textStatus);
-            }
+            },
         });
     });
 
     /*===================================*
     12. POPUP JS
     *===================================*/
-    $('.content-popup').magnificPopup({
-        type: 'inline',
+    $(".content-popup").magnificPopup({
+        type: "inline",
         preloader: true,
-        mainClass: 'mfp-zoom-in',
+        mainClass: "mfp-zoom-in",
     });
 
-    $('.image_gallery').each(function () { // the containers for all your galleries
+    $(".image_gallery").each(function () {
+        // the containers for all your galleries
         $(this).magnificPopup({
-            delegate: 'a', // the selector for gallery item
-            type: 'image',
+            delegate: "a", // the selector for gallery item
+            type: "image",
             gallery: {
                 enabled: true,
             },
         });
     });
 
-    $('.popup-ajax').magnificPopup({
-        type: 'ajax',
+    $(".popup-ajax").magnificPopup({
+        type: "ajax",
         callbacks: {
             ajaxContentAdded: function () {
                 carousel_slider();
                 slick_slider();
-            }
-        }
+            },
+        },
     });
 
-    $('.video_popup, .iframe_popup').magnificPopup({
-        type: 'iframe',
+    $(".video_popup, .iframe_popup").magnificPopup({
+        type: "iframe",
         removalDelay: 160,
-        mainClass: 'mfp-zoom-in',
+        mainClass: "mfp-zoom-in",
         preloader: false,
-        fixedContentPos: false
+        fixedContentPos: false,
     });
 
     /*===================================*
     13. Select dropdowns
     *===================================*/
 
-    if ($('select').length) {
+    if ($("select").length) {
         // Traverse through all dropdowns
-        $.each($('select'), function (i, val) {
+        $.each($("select"), function (i, val) {
             var $el = $(val);
 
             if ($el.val() === "") {
-                $el.addClass('first_null');
+                $el.addClass("first_null");
             }
 
             if (!$el.val()) {
-                $el.addClass('not_chosen');
+                $el.addClass("not_chosen");
             }
 
-            $el.on('change', function () {
-                if (!$el.val())
-                    $el.addClass('not_chosen');
-                else
-                    $el.removeClass('not_chosen');
+            $el.on("change", function () {
+                if (!$el.val()) $el.addClass("not_chosen");
+                else $el.removeClass("not_chosen");
             });
-
         });
     }
 
@@ -563,7 +603,7 @@ PAGE JS
     ==============================================================*/
     if ($(".fit-videos").length > 0) {
         $(".fit-videos").fitVids({
-            customSelector: "iframe[src^='https://w.soundcloud.com']"
+            customSelector: "iframe[src^='https://w.soundcloud.com']",
         });
     }
 
@@ -571,36 +611,41 @@ PAGE JS
     15. DROPDOWN JS
     ==============================================================*/
     if ($(".custome_select").length > 0) {
-        $(document).on('ready', function () {
+        $(document).on("ready", function () {
             $(".custome_select").msDropdown();
         });
     }
 
-
     /*===================================*
     17. COUNTDOWN JS
     *===================================*/
-    $('.countdown_time').each(function () {
-        var endTime = $(this).data('time');
+    $(".countdown_time").each(function () {
+        var endTime = $(this).data("time");
         $(this).countdown(endTime, function (tm) {
-            $(this).html(tm.strftime('<div class="countdown_box"><div class="countdown-wrap"><span class="countdown days">%D </span><span class="cd_text">Days</span></div></div><div class="countdown_box"><div class="countdown-wrap"><span class="countdown hours">%H</span><span class="cd_text">Hours</span></div></div><div class="countdown_box"><div class="countdown-wrap"><span class="countdown minutes">%M</span><span class="cd_text">Minutes</span></div></div><div class="countdown_box"><div class="countdown-wrap"><span class="countdown seconds">%S</span><span class="cd_text">Seconds</span></div></div>'));
+            $(this).html(
+                tm.strftime(
+                    '<div class="countdown_box"><div class="countdown-wrap"><span class="countdown days">%D </span><span class="cd_text">Days</span></div></div><div class="countdown_box"><div class="countdown-wrap"><span class="countdown hours">%H</span><span class="cd_text">Hours</span></div></div><div class="countdown_box"><div class="countdown-wrap"><span class="countdown minutes">%M</span><span class="cd_text">Minutes</span></div></div><div class="countdown_box"><div class="countdown-wrap"><span class="countdown seconds">%S</span><span class="cd_text">Seconds</span></div></div>'
+                )
+            );
         });
     });
 
     /*===================================*
     18. List Grid JS
     *===================================*/
-    $(document).on('click', '.shorting_icon', function () {
-        if ($(this).hasClass('grid')) {
-            $('.shop_container').removeClass('list').addClass('grid');
-            $(this).addClass('active').siblings().removeClass('active');
-        } else if ($(this).hasClass('list')) {
-            $('.shop_container').removeClass('grid').addClass('list');
-            $(this).addClass('active').siblings().removeClass('active');
+    $(document).on("click", ".shorting_icon", function () {
+        if ($(this).hasClass("grid")) {
+            $(".shop_container").removeClass("list").addClass("grid");
+            $(this).addClass("active").siblings().removeClass("active");
+        } else if ($(this).hasClass("list")) {
+            $(".shop_container").removeClass("grid").addClass("list");
+            $(this).addClass("active").siblings().removeClass("active");
         }
-        $(".shop_container").append('<div class="loading_pr"><div class="mfp-preloader"></div></div>');
+        $(".shop_container").append(
+            '<div class="loading_pr"><div class="mfp-preloader"></div></div>'
+        );
         setTimeout(function () {
-            $('.loading_pr').remove();
+            $(".loading_pr").remove();
         }, 500);
     });
 
@@ -609,7 +654,7 @@ PAGE JS
     *===================================*/
     $(function () {
         $('[data-toggle="tooltip"]').tooltip({
-            trigger: 'hover',
+            trigger: "hover",
         });
     });
     $(function () {
@@ -619,90 +664,107 @@ PAGE JS
     /*===================================*
     20. PRODUCT COLOR JS
     *===================================*/
-    $('.product_color_switch span').each(function () {
-        var get_color = $(this).attr('data-color');
+    $(".product_color_switch span").each(function () {
+        var get_color = $(this).attr("data-color");
         $(this).css("background-color", get_color);
     });
 
-    $('.product_color_switch span,.product_size_switch span').on("click", function () {
-        $(this).siblings(this).removeClass('active').end().addClass('active');
-    });
+    $(".product_color_switch span,.product_size_switch span").on(
+        "click",
+        function () {
+            $(this)
+                .siblings(this)
+                .removeClass("active")
+                .end()
+                .addClass("active");
+        }
+    );
 
     /*===================================*
     21. QUICK VIEW POPUP + ZOOM IMAGE + PRODUCT SLIDER JS
     *===================================*/
 
     var zoomProductImage = function () {
-        var image = $('#product_img');
+        var image = $("#product_img");
         var zoomActive = false;
 
-        if ($(image).data('zoom-enable') == true) {
+        if ($(image).data("zoom-enable") == true) {
             zoomActive = !zoomActive;
             if (zoomActive) {
                 if ($(image).length > 0) {
                     $(image).elevateZoom({
-                        cursor: 'crosshair',
+                        cursor: "crosshair",
                         easing: true,
-                        gallery: 'pr_item_gallery',
-                        zoomType: 'inner',
-                        galleryActiveClass: 'active'
+                        gallery: "pr_item_gallery",
+                        zoomType: "inner",
+                        galleryActiveClass: "active",
                     });
                 }
             } else {
-                $.removeData(image, 'elevateZoom');//remove zoom instance from image
-                $('.zoomContainer:last-child').remove();// remove zoom container from DOM
+                $.removeData(image, "elevateZoom"); //remove zoom instance from image
+                $(".zoomContainer:last-child").remove(); // remove zoom container from DOM
             }
         }
-    }
+    };
 
     $.magnificPopup.defaults.callbacks = {
         open: function () {
-            $('body').addClass('zoom_image');
+            $("body").addClass("zoom_image");
         },
         close: function () {
             // Wait until overflow:hidden has been removed from the html tag
             setTimeout(function () {
-                $('body').removeClass('zoom_image').removeClass('zoom_gallery_image');
-                $('.zoomContainer:last-child').remove();// remove zoom container from DOM
-                $('.zoomContainer').slice(1).remove();
+                $("body")
+                    .removeClass("zoom_image")
+                    .removeClass("zoom_gallery_image");
+                $(".zoomContainer:last-child").remove(); // remove zoom container from DOM
+                $(".zoomContainer").slice(1).remove();
             }, 100);
-        }
+        },
     };
 
     // Set up gallery on click
-    var galleryZoom = $('#pr_item_gallery');
+    var galleryZoom = $("#pr_item_gallery");
     galleryZoom.magnificPopup({
-        delegate: 'a',
-        type: 'image',
+        delegate: "a",
+        type: "image",
         gallery: {
-            enabled: true
+            enabled: true,
         },
         callbacks: {
             elementParse: function (item) {
-                item.src = item.el.attr('data-zoom-image');
-            }
-        }
+                item.src = item.el.attr("data-zoom-image");
+            },
+        },
     });
 
     // Zoom image when click on icon
-    $('.product_img_zoom').on('click', function () {
-        var actual = $('#pr_item_gallery a').attr('data-zoom-image');
-        $('body').addClass('zoom_gallery_image');
-        $('#pr_item_gallery .item').each(function () {
-            if (actual == $(this).find('.product_gallery_item').attr('data-zoom-image')) {
-                return galleryZoom.magnificPopup('open', $(this).index());
+    $(".product_img_zoom").on("click", function () {
+        var actual = $("#pr_item_gallery a").attr("data-zoom-image");
+        $("body").addClass("zoom_gallery_image");
+        $("#pr_item_gallery .item").each(function () {
+            if (
+                actual ==
+                $(this).find(".product_gallery_item").attr("data-zoom-image")
+            ) {
+                return galleryZoom.magnificPopup("open", $(this).index());
             }
         });
     });
 
-    $('.plus').on('click', function () {
+    $(".plus").on("click", function () {
         if ($(this).prev().val()) {
-            $(this).prev().val(+$(this).prev().val() + 1);
+            $(this)
+                .prev()
+                .val(+$(this).prev().val() + 1);
         }
     });
-    $('.minus').on('click', function () {
+    $(".minus").on("click", function () {
         if ($(this).next().val() > 1) {
-            if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
+            if ($(this).next().val() > 1)
+                $(this)
+                    .next()
+                    .val(+$(this).next().val() - 1);
         }
     });
 
@@ -713,44 +775,55 @@ PAGE JS
         function number_format(number, decimals, dec_point, thousands_sep) {
             let n = !isFinite(+number) ? 0 : +number,
                 prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-                sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-                dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+                sep =
+                    typeof thousands_sep === "undefined" ? "," : thousands_sep,
+                dec = typeof dec_point === "undefined" ? "." : dec_point,
                 toFixedFix = function (n, prec) {
                     // Fix for IE parseFloat(0.55).toFixed(0) = 0;
                     let k = Math.pow(10, prec);
                     return Math.round(n * k) / k;
                 },
-                s = (prec ? toFixedFix(n, prec) : Math.round(n)).toString().split('.');
+                s = (prec ? toFixedFix(n, prec) : Math.round(n))
+                    .toString()
+                    .split(".");
 
             if (s[0].length > 3) {
                 s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
             }
 
-            if ((s[1] || '').length < prec) {
-                s[1] = s[1] || '';
-                s[1] += new Array(prec - s[1].length + 1).join('0');
+            if ((s[1] || "").length < prec) {
+                s[1] = s[1] || "";
+                s[1] += new Array(prec - s[1].length + 1).join("0");
             }
             return s.join(dec);
         }
 
-        var $filter_selector = $('#price_filter');
+        var $filter_selector = $("#price_filter");
         if ($filter_selector.length) {
-            var a = $filter_selector.data('min-value');
-            var b = $filter_selector.data('max-value');
-            var c = $filter_selector.data('price-sign');
-            var currentExchangeRate = parseFloat($('div[data-current-exchange-rate]').data('current-exchange-rate'));
-            var isPrefixSymbol = $('div[data-is-prefix-symbol]').data('is-prefix-symbol');
+            var a = $filter_selector.data("min-value");
+            var b = $filter_selector.data("max-value");
+            var c = $filter_selector.data("price-sign");
+            var currentExchangeRate = parseFloat(
+                $("div[data-current-exchange-rate]").data(
+                    "current-exchange-rate"
+                )
+            );
+            var isPrefixSymbol = $("div[data-is-prefix-symbol]").data(
+                "is-prefix-symbol"
+            );
             $filter_selector.slider({
-                isRTL: $('body').prop('dir') === 'rtl',
+                isRTL: $("body").prop("dir") === "rtl",
                 range: true,
-                min: $filter_selector.data('min'),
-                max: $filter_selector.data('max'),
+                min: $filter_selector.data("min"),
+                max: $filter_selector.data("max"),
                 values: [a, b],
                 slide: function (event, ui) {
-                    var from = number_format(ui.values[0] * currentExchangeRate);
+                    var from = number_format(
+                        ui.values[0] * currentExchangeRate
+                    );
                     var to = number_format(ui.values[1] * currentExchangeRate);
 
-                    if (isPrefixSymbol == '1') {
+                    if (isPrefixSymbol == "1") {
                         from = c + from;
                         to = c + to;
                     } else {
@@ -758,25 +831,29 @@ PAGE JS
                         to = to + c;
                     }
 
-                    $('#flt_price').html(from + ' - ' + to);
-                    $('#price_first').val(ui.values[0]);
-                    $('#price_second').val(ui.values[1]);
+                    $("#flt_price").html(from + " - " + to);
+                    $("#price_first").val(ui.values[0]);
+                    $("#price_second").val(ui.values[1]);
                 },
                 stop: function () {
-                    $('#price_filter').closest('form').submit();
-                }
+                    $("#price_filter").closest("form").submit();
+                },
             });
-            var from = number_format($filter_selector.slider('values', 0) * currentExchangeRate);
-            var to = number_format($filter_selector.slider('values', 1) * currentExchangeRate);
+            var from = number_format(
+                $filter_selector.slider("values", 0) * currentExchangeRate
+            );
+            var to = number_format(
+                $filter_selector.slider("values", 1) * currentExchangeRate
+            );
 
-            if (isPrefixSymbol == '1') {
+            if (isPrefixSymbol == "1") {
                 from = c + from;
                 to = c + to;
             } else {
                 from = from + c;
                 to = to + c;
             }
-            $('#flt_price').html(from + ' - ' + to);
+            $("#flt_price").html(from + " - " + to);
         }
     });
 
@@ -784,22 +861,21 @@ PAGE JS
     23. RATING STAR JS
     *===================================*/
     $(document).ready(function () {
-        $('.star_rating span').on('click', function () {
-            var onStar = parseFloat($(this).data('value'), 10); // The star currently selected
-            var stars = $(this).parent().children('.star_rating span');
+        $(".star_rating span").on("click", function () {
+            var onStar = parseFloat($(this).data("value"), 10); // The star currently selected
+            var stars = $(this).parent().children(".star_rating span");
             for (var i = 0; i < stars.length; i++) {
-                $(stars[i]).removeClass('selected');
+                $(stars[i]).removeClass("selected");
             }
             for (i = 0; i < onStar; i++) {
-                $(stars[i]).addClass('selected');
+                $(stars[i]).addClass("selected");
             }
 
-            $(this).closest('form').find('input[name=star]').val(onStar);
+            $(this).closest("form").find("input[name=star]").val(onStar);
         });
     });
 
     $(document).ready(function () {
         zoomProductImage();
     });
-
 })(jQuery);

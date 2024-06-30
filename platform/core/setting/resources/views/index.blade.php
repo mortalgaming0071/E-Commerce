@@ -263,6 +263,7 @@
                     <button class="btn btn-info" type="submit">{{ trans('core/setting::setting.save_settings') }}</button>
                 </div>
             </div>
+            
         </div>
     {!! Form::close() !!}
 @endsection

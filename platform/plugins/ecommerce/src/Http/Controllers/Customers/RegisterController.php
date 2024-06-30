@@ -136,7 +136,7 @@ class RegisterController extends Controller
         $rules = [
             'name'     => 'required|max:255',
             'email'    => 'required|email|max:255|unique:ec_customers',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:8|confirmed|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/',
         ];
 
         if (setting('enable_captcha') && is_plugin_active('captcha')) {
